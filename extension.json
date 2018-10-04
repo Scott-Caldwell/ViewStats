@@ -1,0 +1,24 @@
+{
+    "name": "ViewStats",
+    "type": "specialpage",
+    "author": [
+        "Scott Caldwell",
+        "Steven Orvis"
+    ],
+    "version": "0.0.1",
+    "descriptionmsg": "viewstats-desc",
+    "ExtensionMessagesFiles": {
+        "ViewStatsAlias": "ViewStats.alias.php"
+    },
+    "MessagesDirs": {
+        "ViewStats": "i18n"
+    },
+    "AutoloadClasses": {
+        "ViewStatsHooks": "ViewStats.hooks.php"
+    },
+    "Hooks": {
+        "LoadExtensionSchemaUpdates": "ViewStatsHooks::onLoadExtensionSchemaUpdates",
+        "PageViewUpdates": "ViewStatsHooks::onPageViewUpdates"
+    },
+    "manifest_version": 1
+}

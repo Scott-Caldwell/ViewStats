@@ -6,13 +6,14 @@
  *
  * @file
  * @ingroup Extensions
- * @author Steven Orvis, 2016
+ * @author Scott Caldwell, 2018
+ * @author Steven Orvis, 2018
  * @license GNU General Public Licence 2.0 or later
  */
 
-class SpecialSearchStats extends SpecialPage {
+class SpecialViewStats extends SpecialPage {
 	function __construct() {
-		parent::__construct( 'SearchStats' );
+		parent::__construct( 'ViewStats' );
 	}
 
 	function execute( $par ) {
