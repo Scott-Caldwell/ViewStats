@@ -58,7 +58,7 @@ class SpecialViewStats extends SpecialPage {
 		
 		$recentViews = $dbr->select(
 					'view_increment',
-					[ 'max(total_views) AS QUERYCOUNT', 'page_id' ],
+					[ 'count(*) AS QUERYCOUNT', 'page_id' ],
 					'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
 					__METHOD__,
 					[ 'GROUP BY' => 'page_id',
