@@ -15,11 +15,8 @@ class SpecialViewStats extends SpecialPage {
 	}
 
 	function execute( $par ) {
-		$request = $this->getRequest();
 		$output = $this->getOutput();
 		$this->setHeaders();
-
-		$param = $request->getText( 'param' );
 		
 		$dbr = wfGetDB( DB_SLAVE );
 		
@@ -37,10 +34,10 @@ class SpecialViewStats extends SpecialPage {
 		$wikitext = "==Recently viewed pages==\r\n";
 		
 		$recentViews = $dbr->select( 'view_increment',
-					[ 'view_increment.page_id', 'view_increment.update_timestamp' ],
-					'',
-					__METHOD__,
-					[ 'ORDER BY' => 'view_increment.update_timestamp DESC LIMIT 10' ]
+			[ 'view_increment.page_id', 'view_increment.update_timestamp' ],
+			'',
+			__METHOD__,
+			[ 'ORDER BY' => 'view_increment.update_timestamp DESC LIMIT 10' ]
 		);
 		
 		foreach( $recentViews as $row ){
@@ -56,13 +53,12 @@ class SpecialViewStats extends SpecialPage {
 	{
 		$wikitext = "==Most viewed pages in the past 30 days==\r\n";
 		
-		$recentViews = $dbr->select(
-					'view_increment',
-					[ 'count(*) AS QUERYCOUNT', 'page_id' ],
-					'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
-					__METHOD__,
-					[ 'GROUP BY' => 'page_id',
-					  'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]
+		$recentViews = $dbr->select( 'view_increment',
+			[ 'count(*) AS QUERYCOUNT', 'page_id' ],
+				'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
+			__METHOD__,
+			[ 'GROUP BY' => 'page_id',
+				'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]
 		);
 		
 		$wikitext .= "{| class=\"wikitable sortable\" \r\n !Page \r\n !Views \r\n";
@@ -82,8 +78,7 @@ class SpecialViewStats extends SpecialPage {
 	{
 		$wikitext = "==Most viewed pages of all time==\r\n";
 
-		$totalViews_v = $dbr->select(
-			'view_increment',
+		$totalViews_v = $dbr->select( 'view_increment',
 			[ 'max(total_views) AS QUERYCOUNT', 'page_id' ],
 			'',
 			__METHOD__,
