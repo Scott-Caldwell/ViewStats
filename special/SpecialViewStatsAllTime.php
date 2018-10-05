@@ -63,7 +63,7 @@ class SpecialViewStatsAllTime extends SpecialPage {
 		foreach( $totalViews as $row ) {
 			$page = WikiPage::newFromID( $row->page_id );
 
-			$wikitext .= "|- \r\n |" . $page->getTitle() . "\r\n |" . $row->QUERYCOUNT . " \r\n";
+			$wikitext .= "|- \r\n |[[" . $page->getTitle() . "]]\r\n |" . $row->QUERYCOUNT . " \r\n";
 		}
 		
 		$wikitext .= "|} \r\n";
