@@ -39,7 +39,7 @@ class SpecialViewStatsRecent extends SpecialPage {
 		foreach( $recentViews as $row ){
 			$page = WikiPage::newFromID( $row->page_id );
 
-			$wikitext .= "* '''[[" . $page->getTitle() . "]]''' ''at " . $row->update_timestamp . "''\r\n";
+			$wikitext .= "* '''[[:" . $page->getTitle() . "]]''' ''at " . $row->update_timestamp . "''\r\n";
 		}
 		
 		return $wikitext;
