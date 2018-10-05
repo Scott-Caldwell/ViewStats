@@ -91,7 +91,7 @@ class SpecialViewStats extends SpecialPage {
 			  'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]
 		);
 
-		if ( $dbr->tableExists( 'hit_counter' ) ) {
+    if ( $dbr->tableExists( 'hit_counter' ) ) {
 			$totalViews_h = $dbr->select(
 				'hit_counter',
 				[ 'max(page_counter) AS QUERYCOUNT', 'page_id' ],
