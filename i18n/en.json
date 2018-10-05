@@ -1,4 +1,10 @@
 {
-	"@metadata": {},
-	"viewstats-desc": "Watches page view count over time to allow viewing recentness of views."
+	"@metadata": {
+		"authors": [
+			"Scott Caldwell",
+			"Steven Orvis"
+		]
+	},
+	"viewstats": "View stats",
+	"viewstats-desc": "Records Wiki page view metrics over time."
 }

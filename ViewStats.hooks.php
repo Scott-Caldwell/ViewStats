@@ -34,13 +34,15 @@ class ViewStatsHooks {
 			'page_id = ' . $pageId
 		));
 
-		$nextViews_h = intval( $db->selectField( 'hit_counter',
-			'coalesce(max(page_counter), 0)',
-			'page_id = ' . $pageId
-		));
+		if ( $db->tableExists( 'hit_counter' ) ) {
+			$nextViews_h = intval( $db->selectField( 'hit_counter',
+				'coalesce(max(page_counter), 0)',
+				'page_id = ' . $pageId
+			));
 
-		if ( $nextViews_h >= $nextViews_v ) {
-			return $nextViews_h;
+			if ( $nextViews_h >= $nextViews_v ) {
+				return $nextViews_h;
+			}
 		}
 
 		return $nextViews_v;
