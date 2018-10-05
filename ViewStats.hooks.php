@@ -28,12 +28,21 @@ class ViewStatsHooks {
 		}
 	}
 
-	private static function getNextViews( Wikimedia\Rdbms\Database $db, int $pageId ) {
-		$nextViews = $db->selectField( 'view_increment',
+	private static function getNextViews( $db, $pageId ) {
+		$nextViews_v = intval( $db->selectField( 'view_increment',
 			'coalesce(max(total_views), 0) + 1',
 			'page_id = ' . $pageId
-		);
+		));
 
-		return intval( $nextViews );
+		$nextViews_h = intval( $db->selectField( 'hit_counter',
+			'coalesce(max(page_counter), 0)',
+			'page_id = ' . $pageId
+		));
+
+		if ( $nextViews_h >= $nextViews_v ) {
+			return $nextViews_h;
+		}
+
+		return $nextViews_v;
 	}
 }
