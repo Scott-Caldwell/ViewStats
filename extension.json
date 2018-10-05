@@ -15,10 +15,10 @@
     },
     "AutoloadClasses": {
         "ViewStatsHooks": "ViewStats.hooks.php",
-        "SpecialViewStatsRecent": "special\\SpecialViewStatsRecent.php",
-        "SpecialViewStats30": "special\\SpecialViewStats30.php",
-        "SpecialViewStatsAllTime": "special\\SpecialViewStatsAllTime.php",
-        "SpecialViewStats": "special\\SpecialViewStats.php"
+        "SpecialViewStatsRecent": "special/SpecialViewStatsRecent.php",
+        "SpecialViewStats30": "special/SpecialViewStats30.php",
+        "SpecialViewStatsAllTime": "special/SpecialViewStatsAllTime.php",
+        "SpecialViewStats": "special/SpecialViewStats.php"
     },
     "Hooks": {
         "LoadExtensionSchemaUpdates": "ViewStatsHooks::onLoadExtensionSchemaUpdates",
