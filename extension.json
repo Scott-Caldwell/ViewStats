@@ -15,13 +15,19 @@
     },
     "AutoloadClasses": {
         "ViewStatsHooks": "ViewStats.hooks.php",
-        "SpecialViewStats": "SpecialViewStats.php"
+        "SpecialViewStatsRecent": "special\\SpecialViewStatsRecent.php",
+        "SpecialViewStats30": "special\\SpecialViewStats30.php",
+        "SpecialViewStatsAllTime": "special\\SpecialViewStatsAllTime.php",
+        "SpecialViewStats": "special\\SpecialViewStats.php"
     },
     "Hooks": {
         "LoadExtensionSchemaUpdates": "ViewStatsHooks::onLoadExtensionSchemaUpdates",
         "PageViewUpdates": "ViewStatsHooks::onPageViewUpdates"
     },
     "SpecialPages": {
+        "ViewStatsRecent": "SpecialViewStatsRecent",
+        "ViewStats30": "SpecialViewStats30",
+        "ViewStatsAllTime": "SpecialViewStatsAllTime",
         "ViewStats": "SpecialViewStats"
     },
     "manifest_version": 1
