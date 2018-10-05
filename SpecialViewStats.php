@@ -1,8 +1,6 @@
 <?php
 /**
- * SearchStats extension
- *
- * For more info see http://mediawiki.org/wiki/Extension:SearchStats
+ * ViewStats extension
  *
  * @file
  * @ingroup Extensions
@@ -21,70 +19,107 @@ class SpecialViewStats extends SpecialPage {
 		$output = $this->getOutput();
 		$this->setHeaders();
 
-		# Get request data from, e.g.
 		$param = $request->getText( 'param' );
 		
-		# Get database connection
-		$dbr = wfGetDB(DB_SLAVE);
+		$dbr = wfGetDB( DB_SLAVE );
 		
 		$wikitext = '';
 
-		$wikitext .= $this->displayRecentSearches($dbr);	
-		$wikitext .= $this->displayCommonSearches($dbr);
+		$wikitext .= $this->displayRecentViews( $dbr );	
+		$wikitext .= $this->displayCommonViews30( $dbr );
+		$wikitext .= $this->displayCommonViewsAll( $dbr );
 		
-		# Write the page
 		$output->addWikiText( $wikitext );
 	}
 	
-	private function displayRecentSearches($dbr)
+	private function displayRecentViews( $dbr )
 	{
-		$wikitext = '';
+		$wikitext = "==Recently viewed pages==\r\n";
 		
-		# Display the recent searches
-		$wikitext .= "==Recent Searches With No Direct Match==\n";
-		# Get the recent searches
-		$recentStats = $dbr->select(
-					'search_query', 								# table
-					array('sq_id', 'sq_query', 'sq_timestamp'), 	# columns
-					'', 											# conditions
+		$recentViews = $dbr->select( 'view_increment',
+					[ 'view_increment.page_id', 'view_increment.update_timestamp' ],
+					'',
 					__METHOD__,
-					array('ORDER BY' => 'sq_id DESC LIMIT 10')		# options	
+					[ 'ORDER BY' => 'view_increment.update_timestamp DESC LIMIT 10' ]
 		);
 		
-		foreach( $recentStats as $row){
-			$wikitext .= "* '''" . $row->sq_query . "''' ''at " . $row->sq_timestamp . "'' \n";
+		foreach( $recentViews as $row ){
+			$page = WikiPage::newFromID( $row->page_id );
+
+			$wikitext .= "* '''" . $page->getTitle() . "''' ''at " . $row->update_timestamp . "''\r\n";
 		}
 		
 		return $wikitext;
 	}
 	
-	private function displayCommonSearches($dbr)
+	private function displayCommonViews30( $dbr )
 	{
-		$wikitext = '';
+		$wikitext = "==Most viewed pages in the past 30 days==\r\n";
 		
-				# Display the most common searches
-		$wikitext .= "==Common Searches With No Direct Match==\n";
-		
-		# Get the top searches
-		$recentStats = $dbr->select(
-					'search_query', 								# table
-					array('count(*) AS QUERYCOUNT', 'sq_query', ), 	# columns
-					'', 											# conditions
+		$recentViews = $dbr->select(
+					'view_increment',
+					[ 'max(total_views) AS QUERYCOUNT', 'page_id' ],
+					'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
 					__METHOD__,
-					array( 'GROUP BY' => 'sq_query',
-					'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10')		# options	
+					[ 'GROUP BY' => 'page_id',
+					  'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]
 		);
 		
-		# Start a table to display data in
-		$wikitext .= "{| class=\"wikitable sortable\" \n !Term \n !Times \n";
+		$wikitext .= "{| class=\"wikitable sortable\" \r\n !Page \r\n !Views \r\n";
 		
-		# Output the table
-		foreach( $recentStats as $row){
-			$wikitext .= "|- \n |" . $row->sq_query . "\n |" . $row->QUERYCOUNT . " \n";
+		foreach( $recentViews as $row ) {
+			$page = WikiPage::newFromID( $row->page_id );
+
+			$wikitext .= "|- \r\n |" . $page->getTitle() . "\r\n |" . $row->QUERYCOUNT . " \r\n";
 		}
 		
-		# End the table
-		$wikitext .= "|} \n";
+		$wikitext .= "|} \r\n";
+		
+		return $wikitext;
+	}
+	
+	private function displayCommonViewsAll( $dbr )
+	{
+		$wikitext = "==Most viewed pages of all time==\r\n";
+
+		$totalViews_v = $dbr->select(
+			'view_increment',
+			[ 'max(total_views) AS QUERYCOUNT', 'page_id' ],
+			'',
+			__METHOD__,
+			[ 'GROUP BY' => 'page_id',
+			  'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]
+		);
+
+		if ( $dbr->tableExists( 'hit_counter' ) ) {
+			$totalViews_h = $dbr->select(
+				'hit_counter',
+				[ 'max(page_counter) AS QUERYCOUNT', 'page_id' ],
+				'',
+				__METHOD__,
+				[ 'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]
+			);
+
+			if ( $totalViews_h >= $totalViews_v ) {
+				$totalViews = $totalViews_h;
+			}
+			else {
+				$totalViews = $totalViews_v;
+			}
+		}
+		else {
+			$totalViews = $totalViews_v;
+		}
+		
+		$wikitext .= "{| class=\"wikitable sortable\" \r\n !Page \r\n !Views \r\n";
+		
+		foreach( $totalViews as $row ) {
+			$page = WikiPage::newFromID( $row->page_id );
+
+			$wikitext .= "|- \r\n |" . $page->getTitle() . "\r\n |" . $row->QUERYCOUNT . " \r\n";
+		}
+		
+		$wikitext .= "|} \r\n";
 		
 		return $wikitext;
 	}

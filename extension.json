@@ -14,11 +14,15 @@
         "ViewStats": "i18n"
     },
     "AutoloadClasses": {
-        "ViewStatsHooks": "ViewStats.hooks.php"
+        "ViewStatsHooks": "ViewStats.hooks.php",
+        "SpecialViewStats": "SpecialViewStats.php"
     },
     "Hooks": {
         "LoadExtensionSchemaUpdates": "ViewStatsHooks::onLoadExtensionSchemaUpdates",
         "PageViewUpdates": "ViewStatsHooks::onPageViewUpdates"
+    },
+    "SpecialPages": {
+        "ViewStats": "SpecialViewStats"
     },
     "manifest_version": 1
 }
