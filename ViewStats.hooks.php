@@ -20,12 +20,12 @@ class ViewStatsHooks {
 			$nextViews = ViewStatsHooks::getNextViews( $db, $pageId );
 
 			$db->onTransactionIdle( function () use ( $db, $pageId, $userId, $userName, $nextViews ) {
-				$db->insert( 'view_increment',
-					[ 'page_id'      => $pageId,
-					  'user_id'      => $userId,
-					  'user_name'    => $userName,
-					  'total_views'  => $nextViews]
-				);
+				$db->insert( 'view_increment', [
+					'page_id'      => $pageId,
+					'user_id'      => $userId,
+					'user_name'    => $userName,
+					'total_views'  => $nextViews
+				]);
 			});
 		}
 	}

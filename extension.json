@@ -15,6 +15,7 @@
     },
     "AutoloadClasses": {
         "ViewStatsHooks": "ViewStats.hooks.php",
+        "SpecialViewStatsUniqueUsers30": "special/SpecialViewStatsUniqueUsers30.php",
         "SpecialViewStatsRecent": "special/SpecialViewStatsRecent.php",
         "SpecialViewStats30": "special/SpecialViewStats30.php",
         "SpecialViewStatsAllTime": "special/SpecialViewStatsAllTime.php",
@@ -25,6 +26,7 @@
         "PageViewUpdates": "ViewStatsHooks::onPageViewUpdates"
     },
     "SpecialPages": {
+        "ViewStatsUniqueUsers30": "SpecialViewStatsUniqueUsers30",
         "ViewStatsRecent": "SpecialViewStatsRecent",
         "ViewStats30": "SpecialViewStats30",
         "ViewStatsAllTime": "SpecialViewStatsAllTime",
