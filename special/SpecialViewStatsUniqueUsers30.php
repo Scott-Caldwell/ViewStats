@@ -31,7 +31,7 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
 			[ 'count(distinct user_name)' ]
 		);
 		
-		$wikitext .= "'''Unique users in the last 30 days:''' " . $userCount;
+		$wikitext = "'''Unique users in the last 30 days:''' " . $userCount;
 		
 		return $wikitext;
 	}
