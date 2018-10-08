@@ -28,7 +28,8 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
 	private function displayUniqueUsers( $dbr )
 	{
 		$userCount = $dbr->selectField( 'view_increment',
-			[ 'count(distinct user_name)' ]
+			[ 'count(distinct user_name)' ],
+			'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))'
 		);
 		
 		$wikitext = "'''Unique users in the last 30 days:''' " . $userCount;
