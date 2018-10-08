@@ -44,7 +44,7 @@ class SpecialViewStatsAllTime extends SpecialPage {
 				'',
 				__METHOD__,
 				[ 'GROUP BY' => 'page_id',
-				  'ORDER BY' => 'QUERYCOUNT DESC, page_id ASC LIMIT 10' ]
+				  'ORDER BY' => 'QUERYCOUNT DESC, page_id DESC LIMIT 10' ]
 			);
 
 			if ( $totalViews_h >= $totalViews_v ) {
