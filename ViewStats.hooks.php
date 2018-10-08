@@ -15,13 +15,15 @@ class ViewStatsHooks {
 			$db = wfGetDB( DB_MASTER );
 			$pageId = intval( $wikipage->getId() );
 			$userId = intval( $user->getId() );
+			$userName = $user->getName();
 
 			$nextViews = ViewStatsHooks::getNextViews( $db, $pageId );
 
-			$db->onTransactionIdle( function () use ( $db, $pageId, $userId, $nextViews ) {
+			$db->onTransactionIdle( function () use ( $db, $pageId, $userId, $userName, $nextViews ) {
 				$db->insert( 'view_increment',
 					[ 'page_id'      => $pageId,
 					  'user_id'      => $userId,
+					  'user_name'    => $userName,
 					  'total_views'  => $nextViews]
 				);
 			});

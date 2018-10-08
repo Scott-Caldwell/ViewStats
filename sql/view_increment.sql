@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS /*_*/view_increment (
   view_increment_id int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary key.',
   page_id int(11) NOT NULL COMMENT 'Page that was viewed.',
   user_id int(11) NOT NULL COMMENT 'User who viewed the page.',
+  user_name varchar(255) NOT NULL COMMENT 'Name or IP address of the user who viewed the page.',
   update_timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Timestamp of the page view.',
   total_views int(11) NOT NULL COMMENT 'Total number of views as of the update timestamp.',
   PRIMARY KEY (view_increment_id),
