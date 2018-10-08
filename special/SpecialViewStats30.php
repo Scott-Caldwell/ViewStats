@@ -36,7 +36,7 @@ class SpecialViewStats30 extends SpecialPage {
 				'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
 			__METHOD__,
 			[ 'GROUP BY' => 'page_id',
-				'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]
+				'ORDER BY' => 'QUERYCOUNT DESC, page_id DESC LIMIT 10' ]
 		);
 		
 		$wikitext .= "{| class=\"wikitable sortable\" \r\n !Page \r\n !Views \r\n";
