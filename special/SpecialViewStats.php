@@ -23,6 +23,7 @@ class SpecialViewStats extends SpecialPage {
 		$wikitext = '';
 
 		$wikitext .= "{{Special:ViewStatsUniqueUsers30}}\r\n";
+		$wikitext .= "{{Special:ViewStatsTotalViews30}}\r\n";
 		$wikitext .= "{{Special:ViewStatsRecent}}\r\n";	
 		$wikitext .= "{{Special:ViewStats30}}\r\n";
 		$wikitext .= "{{Special:ViewStatsAllTime}}\r\n";
