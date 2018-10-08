@@ -20,7 +20,8 @@
         "SpecialViewStatsRecent": "special/SpecialViewStatsRecent.php",
         "SpecialViewStats30": "special/SpecialViewStats30.php",
         "SpecialViewStatsAllTime": "special/SpecialViewStatsAllTime.php",
-        "SpecialViewStats": "special/SpecialViewStats.php"
+        "SpecialViewStats": "special/SpecialViewStats.php",
+        "ViewStatsPageViewsQueryApi": "api/ViewStatsPageViewsQueryApi.php"
     },
     "Hooks": {
         "LoadExtensionSchemaUpdates": "ViewStatsHooks::onLoadExtensionSchemaUpdates",
@@ -33,6 +34,9 @@
         "ViewStats30": "SpecialViewStats30",
         "ViewStatsAllTime": "SpecialViewStatsAllTime",
         "ViewStats": "SpecialViewStats"
+    },
+    "APIModules": {
+        "pageviews": "ViewStatsPageViewsQueryApi"
     },
     "manifest_version": 1
 }
