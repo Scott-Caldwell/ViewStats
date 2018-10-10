@@ -63,7 +63,8 @@ class SpecialPageViews extends SpecialPage {
               }, {
                 \"type\": \"y\",
                 \"scale\": \"y\",
-                \"orient\": \"left\"
+                \"orient\": \"left\",
+                \"format\": \"d\"
               }
             ],
             \"marks\": [{
