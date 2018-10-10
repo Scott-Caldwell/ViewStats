@@ -10,6 +10,7 @@
 $specialPageAliases = array();
 
 /** English (English) */
-$specialPageAliases['en'] = array(
-	'ViewStats' => array( 'ViewStats' ),
-);
+$specialPageAliases['en'] = [
+	'ViewStats' => [ 'ViewStats' ],
+	'PageViews' => [ 'PageViews' ]
+];

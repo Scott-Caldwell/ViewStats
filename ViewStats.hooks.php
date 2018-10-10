@@ -49,4 +49,25 @@ class ViewStatsHooks {
 
 		return $nextViews_v;
 	}
+
+	public static function onSkinTemplateNavigation( &$sktemplate, &$links )
+	{
+		$title = $sktemplate->getTitle();
+		$namespace = $title->getNamespace();
+
+		if ( $title->exists() && $namespace != NS_SPECIAL ) {
+
+			$page = WikiPage::factory( $title );
+			$pageid = $page->getId();
+			$special = Title::newFromText("PageViews", NS_SPECIAL)->getInternalURL([ 'pageid' => $pageid ]);
+			
+			$links['views']['PageViews'] = [
+				'class' => false,
+				'text'  => wfMessage('tabpageviews'),
+				'href'  => $special
+			];
+		}
+
+		return true;
+	}
 }
