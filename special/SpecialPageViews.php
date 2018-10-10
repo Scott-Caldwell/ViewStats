@@ -15,7 +15,7 @@ class SpecialPageViews extends SpecialPage {
         $page = WikiPage::newFromId( $pageid );
         $title = $page->getTitle();
 
-        $text = "===Page views for [[" . $title . "]]===\r\n";
+        $text = "===Page views for [[:" . $title . "]]===\r\n";
 
         $text .= SpecialPageViews::buildText( $pageid );
 		
