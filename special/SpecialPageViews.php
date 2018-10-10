@@ -12,7 +12,12 @@ class SpecialPageViews extends SpecialPage {
         
         $pageid = $request->getText( 'pageid' );
 
-        $text = SpecialPageViews::buildText( $pageid );
+        $page = WikiPage::newFromId( $pageid );
+        $title = $page->getTitle();
+
+        $text = "===Page views for " . $title . "===\r\n";
+
+        $text .= SpecialPageViews::buildText( $pageid );
 		
 		$output->addWikiText( $text );
     }
@@ -22,7 +27,6 @@ class SpecialPageViews extends SpecialPage {
             \"version\": 2,
             \"width\": 800,
             \"height\": 400,
-            \"padding\": {\"top\": 10, \"left\": 30, \"bottom\": 30, \"right\": 10},
             \"data\": [{
                 \"name\": \"table\",
                 \"url\": \"wikiapi:///api.php?action=pageviews&format=json&pageid=" . $pageid . "\",
