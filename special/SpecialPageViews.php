@@ -52,7 +52,8 @@ class SpecialPageViews extends SpecialPage {
                 \"name\": \"y\",
                 \"type\": \"linear\",
                 \"range\": \"height\",
-                \"domain\": {\"data\": \"table\", \"field\": \"viewCount\"}
+                \"domain\": {\"data\": \"table\", \"field\": \"viewCount\"},
+                \"nice\": true
               }
             ],
             \"axes\": [{
