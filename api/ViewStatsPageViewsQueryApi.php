@@ -60,7 +60,7 @@ class ViewCount {
     public $dateViewed;
     public $viewCount;
 
-    function __construct(DateTimeImmutable $dt, int $v) {
+    function __construct(DateTimeImmutable $dt, $v) {
         $this->internalDate = $dt;
         $this->dateViewed = $dt->format("Y-m-d");
         $this->viewCount = $v;
