@@ -15,11 +15,13 @@ class SpecialPageViews extends SpecialPage {
         $page = WikiPage::newFromId( $pageid );
         $title = $page->getTitle();
 
-        $text = "===Page views for [[:" . $title . "]]===\r\n";
+        $output->setPageTitle( "Page views for " . $title );
 
-        $text .= SpecialPageViews::buildText( $pageid );
+        $output->addBacklinkSubtitle( $title );
+
+        $text = SpecialPageViews::buildText( $pageid );
 		
-		$output->addWikiText( $text );
+		    $output->addWikiText( $text );
     }
 
     private static function buildText( $pageid ) {
