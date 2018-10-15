@@ -63,7 +63,8 @@ class SpecialPageViews extends SpecialPage {
                 \"scale\": \"x\",
                 \"orient\": \"bottom\",
                 \"format\": \"%b %-d, %Y\",
-                \"labelOverlap\": \"parity\"
+                \"labelOverlap\": \"parity\",
+                \"tickCount\": 10
               }, {
                 \"type\": \"y\",
                 \"scale\": \"y\",
