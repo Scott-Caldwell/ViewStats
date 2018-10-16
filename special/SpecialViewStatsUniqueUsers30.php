@@ -21,6 +21,8 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
 		$dbr = wfGetDB( DB_SLAVE );
 		
 		$wikitext = $this->displayUniqueUsers( $dbr );
+		$wikitext .= "\r\n\r\n";
+		$wikitext .= $this->displayUniqueIPs( $dbr );
 		
 		$output->addWikiText( $wikitext );
 	}
@@ -29,10 +31,24 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
 	{
 		$userCount = $dbr->selectField( 'view_increment',
 			[ 'count(distinct user_name)' ],
-			'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))'
+			[ 'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
+		      'user_name in (select user_name from user)']
 		);
 		
-		$wikitext = "'''Unique users in the last 30 days:''' " . $userCount;
+		$wikitext = "'''Unique logged-in users in the last 30 days:''' " . $userCount;
+		
+		return $wikitext;
+	}
+	
+	private function displayUniqueIPs( $dbr )
+	{
+		$userCount = $dbr->selectField( 'view_increment',
+			[ 'count(distinct user_name)' ],
+			[ 'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
+		      'user_name not in (select user_name from user)']
+		);
+		
+		$wikitext = "'''Unique non-logged-in users in the last 30 days:''' " . $userCount;
 		
 		return $wikitext;
 	}
