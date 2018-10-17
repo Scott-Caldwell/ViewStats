@@ -48,7 +48,7 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
 		      'user_name not in (select user_name from user)']
 		);
 		
-		$wikitext = "'''Unique non-logged-in users in the last 30 days:''' " . $userCount;
+		$wikitext = "'''Unique IPs (not logged in) in the last 30 days:''' " . $userCount;
 		
 		return $wikitext;
 	}
