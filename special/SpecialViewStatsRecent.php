@@ -31,7 +31,7 @@ class SpecialViewStatsRecent extends SpecialPage {
 		
 		$recentViews = $dbr->select( 'view_increment',
 			[ 'view_increment.page_id', 'view_increment.update_timestamp' ],
-			'',
+			'view_increment.page_id in (select page_id from page)',
 			__METHOD__,
 			[ 'ORDER BY' => 'view_increment.update_timestamp DESC LIMIT 10' ]
 		);

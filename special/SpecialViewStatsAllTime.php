@@ -31,7 +31,7 @@ class SpecialViewStatsAllTime extends SpecialPage {
 
 		$totalViews_v = $dbr->select( 'view_increment',
 			[ 'max(total_views) AS QUERYCOUNT', 'page_id' ],
-			'',
+			'view_increment.page_id in (select page_id from page)',
 			__METHOD__,
 			[ 'GROUP BY' => 'page_id',
 			  'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]

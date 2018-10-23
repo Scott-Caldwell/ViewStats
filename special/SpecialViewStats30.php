@@ -33,10 +33,10 @@ class SpecialViewStats30 extends SpecialPage {
 		
 		$recentViews = $dbr->select( 'view_increment',
 			[ 'count(*) AS QUERYCOUNT', 'page_id' ],
-				'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
+			  'view_increment.page_id in (select page_id from page) and update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
 			__METHOD__,
 			[ 'GROUP BY' => 'page_id',
-				'ORDER BY' => 'QUERYCOUNT DESC, page_id DESC LIMIT 10' ]
+			  'ORDER BY' => 'QUERYCOUNT DESC, page_id DESC LIMIT 10' ]
 		);
 		
 		$wikitext .= "{| class=\"wikitable sortable\" \r\n !Page \r\n !Views \r\n";
