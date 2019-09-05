@@ -17,17 +17,17 @@ class ViewStatsPageViewsQueryApi extends ApiBase {
         
         $dbr = wfGetDB( DB_REPLICA );
         
-        $views = ViewStatsPageViewsQueryApi::getViewsByDay( $dbr, $pageid );
+        $views = ViewStatsPageViewsQueryApi::getViewsByWeek( $dbr, $pageid );
 
 		$this->getResult()->addValue( null, $this->getModuleName(), [ 'pageid' => $pageid, 'views' => $views ] );
     }
     
-    private static function getViewsByDay( $dbr, $pageid ) {
+    private static function getViewsByWeek( $dbr, $pageid ) {
         $rows = $dbr->select( 'view_increment',
-            [ 'date(update_timestamp) as date', 'count(*) as viewcount' ],
+            [ 'date(subdate(update_timestamp, dayofweek(update_timestamp) - 1)) as date', 'count(*) as viewcount' ],
             'page_id = ' . intval( $pageid ),
             __METHOD__,
-            [ 'GROUP BY' => 'date(update_timestamp)' ]
+            [ 'GROUP BY' => 'date(subdate(update_timestamp, dayofweek(update_timestamp) - 1))' ]
         );
 
         $views = array();
@@ -40,7 +40,7 @@ class ViewStatsPageViewsQueryApi extends ApiBase {
 
         $minDate = min( $dates );
         $maxDate = max( $dates );
-        $datePeriod = new DatePeriod( $minDate, new DateInterval( 'P1D' ), $maxDate);
+        $datePeriod = new DatePeriod( $minDate, new DateInterval( 'P1W' ), $maxDate);
 
         foreach ( $datePeriod as $key => $date ) {
             if ( !in_array( $date, $dates ) ) {
