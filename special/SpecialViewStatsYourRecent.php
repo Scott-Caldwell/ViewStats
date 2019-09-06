@@ -11,9 +11,9 @@
 
 require_once( 'SpecialViewStatsUtility.php' );
 
-class SpecialViewStatsRecent extends SpecialPage {
+class SpecialViewStatsYourRecent extends SpecialPage {
 	function __construct() {
-		parent::__construct( 'ViewStatsRecent', '', false, false, '', true );
+		parent::__construct( 'ViewStatsYourRecent', '', false, false, '', true );
 	}
 
 	function execute( $par ) {
@@ -22,19 +22,23 @@ class SpecialViewStatsRecent extends SpecialPage {
 		
 		$dbr = wfGetDB( DB_SLAVE );
 		
-		$wikitext = $this->displayRecentViews( $dbr );
+		$wikitext = $this->displayYourRecentViews( $dbr );
 		
 		$output->addWikiText( $wikitext );
 	}
 	
-	private function displayRecentViews( $dbr ) {
-		$wikitext = "==Recently viewed pages==\r\n";
+	private function displayYourRecentViews( $dbr ) {
+		$wikitext = "==Your recently viewed pages==\r\n";
 
 		$pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
+
+		$user = $this->getUser();
+		$userName = $user->getName();
 		
 		$recentViews = $dbr->select( 'view_increment',
 			[ 'view_increment.page_id', 'view_increment.update_timestamp' ],
-			"view_increment.page_id in ({$pageIdSubquery})",
+			[ "view_increment.page_id in ({$pageIdSubquery})",
+			  "user_name = '{$userName}'" ],
 			__METHOD__,
 			[ 'ORDER BY' => 'view_increment.update_timestamp DESC LIMIT 10' ]
 		);
