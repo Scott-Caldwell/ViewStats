@@ -13,6 +13,9 @@
     "MessagesDirs": {
         "ViewStats": "i18n"
     },
+    "config": {
+        "ViewStatsHiddenNamespaces" : []
+    },
     "AutoloadClasses": {
         "ViewStatsHooks": "ViewStats.hooks.php",
         "SpecialViewStatsUniqueUsers30": "special/SpecialViewStatsUniqueUsers30.php",

@@ -9,6 +9,8 @@
  * @license GNU General Public Licence 2.0 or later
  */
 
+require_once( 'SpecialViewStatsUtility.php' );
+
 class SpecialViewStatsAllTime extends SpecialPage {
 	function __construct() {
 		parent::__construct( 'ViewStatsAllTime', '', false, false, '', true );
@@ -25,23 +27,23 @@ class SpecialViewStatsAllTime extends SpecialPage {
 		$output->addWikiText( $wikitext );
 	}
 	
-	private function displayCommonViewsAll( $dbr )
-	{
+	private function displayCommonViewsAll( $dbr ) {
 		$wikitext = "==Most viewed pages of all time==\r\n";
+
+		$pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
 
 		$totalViews_v = $dbr->select( 'view_increment',
 			[ 'max(total_views) AS QUERYCOUNT', 'page_id' ],
-			'view_increment.page_id in (select page_id from page)',
+			"view_increment.page_id in ({$pageIdSubquery})",
 			__METHOD__,
 			[ 'GROUP BY' => 'page_id',
 			  'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]
 		);
 
     	if ( $dbr->tableExists( 'hit_counter' ) ) {
-			$totalViews_h = $dbr->select(
-				'hit_counter',
+			$totalViews_h = $dbr->select( 'hit_counter',
 				[ 'max(page_counter) AS QUERYCOUNT', 'page_id' ],
-				'',
+				"hit_counter.page_id in ({$pageIdSubquery})",
 				__METHOD__,
 				[ 'GROUP BY' => 'page_id',
 				  'ORDER BY' => 'QUERYCOUNT DESC, page_id DESC LIMIT 10' ]
@@ -58,15 +60,17 @@ class SpecialViewStatsAllTime extends SpecialPage {
 			$totalViews = $totalViews_v;
 		}
 		
-		$wikitext .= "{| class=\"wikitable sortable\" \r\n !Page \r\n !Views \r\n";
+		$wikitext .= "{| class=\"wikitable sortable\"\r\n !Page\r\n !Views\r\n";
 		
 		foreach( $totalViews as $row ) {
 			$page = WikiPage::newFromID( $row->page_id );
+			$title = $page->getTitle();
+			$count = $row->QUERYCOUNT;
 
-			$wikitext .= "|- \r\n |[[:" . $page->getTitle() . "]]\r\n |" . $row->QUERYCOUNT . " \r\n";
+			$wikitext .= "|-\r\n |[[:{$title}]]\r\n |{$count}\r\n";
 		}
 		
-		$wikitext .= "|} \r\n";
+		$wikitext .= "|}\r\n";
 		
 		return $wikitext;
 	}

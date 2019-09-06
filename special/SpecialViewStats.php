@@ -18,8 +18,6 @@ class SpecialViewStats extends SpecialPage {
 		$output = $this->getOutput();
 		$this->setHeaders();
 		
-		$dbr = wfGetDB( DB_SLAVE );
-		
 		$wikitext = '';
 
 		$wikitext .= "{{Special:ViewStatsUniqueUsers30}}\r\n";
