@@ -28,7 +28,7 @@ class SpecialViewStatsRecent extends SpecialPage {
 	}
 	
 	private function displayRecentViews( $dbr ) {
-		$wikitext = "==Recently viewed pages==\r\n";
+		$wikitext = "==Trending pages==\r\n";
 
 		$pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
 		
