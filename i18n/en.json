@@ -1,15 +1,15 @@
 {
-	"@metadata": {
-		"authors": [
-			"Scott Caldwell",
-			"Steven Orvis"
-		]
-	},
-	"viewstats": "View stats",
-	"viewstats-desc": "Records Wiki page view metrics over time.",
-	"apihelp-pageviews-description": "Returns a list of all page views for the specified page.",
-	"apihelp-pageviews-summary": "Returns a list of all page views for the specified page.",
-	"apihelp-pageviews-param-pageid": "The page for which the views are being queried.",
-	"tabpageviews": "Page views",
-	"pageviews": "Page views"
+  "@metadata": {
+    "authors": [
+      "Scott Caldwell",
+      "Steven Orvis"
+    ]
+  },
+  "viewstats": "View stats",
+  "viewstats-desc": "Records Wiki page view metrics over time.",
+  "apihelp-pageviews-description": "Returns a list of all page views for the specified page.",
+  "apihelp-pageviews-summary": "Returns a list of all page views for the specified page.",
+  "apihelp-pageviews-param-pageid": "The page for which the views are being queried.",
+  "tabpageviews": "Page views",
+  "pageviews": "Page views"
 }

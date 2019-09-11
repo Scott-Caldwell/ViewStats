@@ -1,17 +1,17 @@
 <?php
 class ViewStatsPageViewsQueryApi extends ApiBase {
 
-	public function getAllowedParams() {
-		return [
-			'pageid' => [
-				ApiBase::PARAM_TYPE => 'integer',
-				ApiBase::PARAM_REQUIRED => true,
-			],
-		];
-	}
+    public function getAllowedParams() {
+        return [
+            'pageid' => [
+                ApiBase::PARAM_TYPE => 'integer',
+                ApiBase::PARAM_REQUIRED => true,
+            ],
+        ];
+    }
 
-	public function execute() {
-		$params = $this->extractRequestParams();
+    public function execute() {
+        $params = $this->extractRequestParams();
 
         $pageid = $params['pageid'];
         
@@ -19,15 +19,18 @@ class ViewStatsPageViewsQueryApi extends ApiBase {
         
         $views = ViewStatsPageViewsQueryApi::getViewsByWeek( $dbr, $pageid );
 
-		$this->getResult()->addValue( null, $this->getModuleName(), [ 'pageid' => $pageid, 'views' => $views ] );
+        $this->getResult()->addValue( null, $this->getModuleName(), [ 'pageid' => $pageid, 'views' => $views ] );
     }
     
     private static function getViewsByWeek( $dbr, $pageid ) {
+        $dateFunction = 'date(subdate(update_timestamp, dayofweek(update_timestamp) - 1))';
+        $pageIdAsInt = intval( $pageid );
+
         $rows = $dbr->select( 'view_increment',
-            [ 'date(subdate(update_timestamp, dayofweek(update_timestamp) - 1)) as date', 'count(*) as viewcount' ],
-            'page_id = ' . intval( $pageid ),
+            [ "{$dateFunction} as date", 'count(*) as viewcount' ],
+            "page_id = {$pageIdAsInt}",
             __METHOD__,
-            [ 'GROUP BY' => 'date(subdate(update_timestamp, dayofweek(update_timestamp) - 1))' ]
+            [ 'GROUP BY' => $dateFunction ]
         );
 
         $views = array();
@@ -60,9 +63,9 @@ class ViewCount {
     public $dateViewed;
     public $viewCount;
 
-    function __construct(DateTimeImmutable $dt, $v) {
+    function __construct( DateTimeImmutable $dt, $v ) {
         $this->internalDate = $dt;
-        $this->dateViewed = $dt->format("Y-m-d");
+        $this->dateViewed = $dt->format( 'Y-m-d' );
         $this->viewCount = $v;
     }
 

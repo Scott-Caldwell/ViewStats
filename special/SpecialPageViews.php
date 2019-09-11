@@ -1,27 +1,27 @@
 <?php
-
 class SpecialPageViews extends SpecialPage {
-	function __construct() {
-		parent::__construct( 'PageViews', '', false, false, '', true );
-	}
+
+    function __construct() {
+            parent::__construct( 'PageViews', '', false, false, '', true );
+    }
     
     function execute( $par ) {
         $request = $this->getRequest();
         $output = $this->getOutput();
         $this->setHeaders();
-        
+
         $pageid = $request->getText( 'pageid' );
 
         $page = WikiPage::newFromId( $pageid );
         $title = $page->getTitle();
 
-        $output->setPageTitle( "Page views for " . $title );
+        $output->setPageTitle( "Page views for {$title}" );
 
         $output->addBacklinkSubtitle( $title );
 
         $text = SpecialPageViews::buildText( $pageid );
-		
-		    $output->addWikiText( $text );
+        
+            $output->addWikiText( $text );
     }
 
     private static function buildText( $pageid ) {
@@ -31,7 +31,7 @@ class SpecialPageViews extends SpecialPage {
             \"height\": 400,
             \"data\": [{
                 \"name\": \"table\",
-                \"url\": \"wikiapi:///api.php?action=pageviews&format=json&pageid=" . $pageid . "\",
+                \"url\": \"wikiapi:///api.php?action=pageviews&format=json&pageid={$pageid}\",
                 \"format\": {
                   \"type\": \"json\",
                   \"property\": \"pageviews.views\",
