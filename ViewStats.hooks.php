@@ -1,73 +1,76 @@
 <?php
 
 class ViewStatsHooks {
-	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
-		$updater->addExtensionTable( 'view_increment',
-			__DIR__ . "/sql/view_increment.sql" );
+    public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
+        $updater->addExtensionTable( 'view_increment',
+            __DIR__ . "/sql/view_increment.sql" );
 
-		return true;
-	}
+        return true;
+    }
 
-	public static function onPageViewUpdates( WikiPage $wikipage, User $user ) {
-		if ( !$user->isAllowed( 'bot' )
-		  && $wikipage->exists() ) {
+    public static function onPageViewUpdates( WikiPage $wikipage, User $user ) {
+        if ( !$user->isAllowed( 'bot' ) && $wikipage->exists() ) {
 
-			$db = wfGetDB( DB_MASTER );
-			$pageId = intval( $wikipage->getId() );
-			$userId = intval( $user->getId() );
-			$userName = $user->getName();
+            $dbw = wfGetDB( DB_MASTER );
+            $pageId = intval( $wikipage->getId() );
+            $userId = intval( $user->getId() );
+            $userName = $user->getName();
 
-			$nextViews = ViewStatsHooks::getNextViews( $db, $pageId );
+            $dbw->onTransactionIdle( function () use ( $dbw, $pageId, $userId, $userName ) {
+                $dbw->begin( __METHOD__ );
 
-			$db->onTransactionIdle( function () use ( $db, $pageId, $userId, $userName, $nextViews ) {
-				$db->insert( 'view_increment', [
-					'page_id'      => $pageId,
-					'user_id'      => $userId,
-					'user_name'    => $userName,
-					'total_views'  => $nextViews
-				]);
-			});
-		}
-	}
+                $nextViews = ViewStatsHooks::getNextViews( $dbw, $pageId );
 
-	private static function getNextViews( $db, $pageId ) {
-		$nextViews_v = intval( $db->selectField( 'view_increment',
-			'coalesce(max(total_views), 0) + 1',
-			'page_id = ' . $pageId
-		));
+                $dbw->insert( 'view_increment', [
+                    'page_id'      => $pageId,
+                    'user_id'      => $userId,
+                    'user_name'    => $userName,
+                    'total_views'  => $nextViews
+                ]);
 
-		if ( $db->tableExists( 'hit_counter' ) ) {
-			$nextViews_h = intval( $db->selectField( 'hit_counter',
-				'coalesce(max(page_counter), 0)',
-				'page_id = ' . $pageId
-			));
+                $dbw->commit( __METHOD__ );
+            });
+        }
+    }
 
-			if ( $nextViews_h >= $nextViews_v ) {
-				return $nextViews_h;
-			}
-		}
+    private static function getNextViews( $dbw, $pageId ) {
+        $nextViews_v = intval( $dbw->selectField( 'view_increment',
+            'coalesce(max(total_views), 0) + 1',
+            'page_id = ' . $pageId
+        ));
 
-		return $nextViews_v;
-	}
+        if ( $dbw->tableExists( 'hit_counter' ) ) {
+            $nextViews_h = intval( $dbw->selectField( 'hit_counter',
+                'coalesce(max(page_counter), 0)',
+                'page_id = ' . $pageId
+            ));
 
-	public static function onSkinTemplateNavigation( &$sktemplate, &$links )
-	{
-		$title = $sktemplate->getTitle();
-		$namespace = $title->getNamespace();
+            if ( $nextViews_h >= $nextViews_v ) {
+                return $nextViews_h;
+            }
+        }
 
-		if ( $title->exists() && $namespace != NS_SPECIAL ) {
+        return $nextViews_v;
+    }
 
-			$page = WikiPage::factory( $title );
-			$pageid = $page->getId();
-			$special = Title::newFromText("PageViews", NS_SPECIAL)->getInternalURL([ 'pageid' => $pageid ]);
-			
-			$links['views']['PageViews'] = [
-				'class' => false,
-				'text'  => wfMessage('tabpageviews'),
-				'href'  => $special
-			];
-		}
+    public static function onSkinTemplateNavigation( &$sktemplate, &$links )
+    {
+        $title = $sktemplate->getTitle();
+        $namespace = $title->getNamespace();
 
-		return true;
-	}
+        if ( $title->exists() && $namespace != NS_SPECIAL ) {
+
+            $page = WikiPage::factory( $title );
+            $pageid = $page->getId();
+            $special = Title::newFromText("PageViews", NS_SPECIAL)->getInternalURL([ 'pageid' => $pageid ]);
+            
+            $links['views']['PageViews'] = [
+                'class' => false,
+                'text'  => wfMessage('tabpageviews'),
+                'href'  => $special
+            ];
+        }
+
+        return true;
+    }
 }
