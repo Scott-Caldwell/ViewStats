@@ -1,52 +1,52 @@
 {
-    "name": "ViewStats",
-    "type": "specialpage",
-    "author": [
-        "Scott Caldwell",
-        "Steven Orvis"
-    ],
-    "version": "0.0.1",
-    "descriptionmsg": "viewstats-desc",
-    "ExtensionMessagesFiles": {
-        "ViewStatsAlias": "ViewStats.alias.php"
-    },
-    "MessagesDirs": {
-        "ViewStats": "i18n"
-    },
-    "config": {
-        "ViewStatsHiddenNamespaces" : []
-    },
-    "AutoloadClasses": {
-        "ViewStatsHooks": "ViewStats.hooks.php",
-        "SpecialViewStatsUniqueUsers30": "special/SpecialViewStatsUniqueUsers30.php",
-        "SpecialViewStatsTotalViews30": "special/SpecialViewStatsTotalViews30.php",
-        "SpecialViewStatsRecent": "special/SpecialViewStatsRecent.php",
-        "SpecialViewStatsYourRecent": "special/SpecialViewStatsYourRecent.php",
-        "SpecialViewStats7": "special/SpecialViewStats7.php",
-        "SpecialViewStats30": "special/SpecialViewStats30.php",
-        "SpecialViewStatsAllTime": "special/SpecialViewStatsAllTime.php",
-        "SpecialViewStats": "special/SpecialViewStats.php",
-        "ViewStatsPageViewsQueryApi": "api/ViewStatsPageViewsQueryApi.php",
-        "SpecialPageViews": "special/SpecialPageViews.php"
-    },
-    "Hooks": {
-        "LoadExtensionSchemaUpdates": "ViewStatsHooks::onLoadExtensionSchemaUpdates",
-        "PageViewUpdates": "ViewStatsHooks::onPageViewUpdates",
-        "SkinTemplateNavigation": "ViewStatsHooks::onSkinTemplateNavigation"
-    },
-    "SpecialPages": {
-        "ViewStatsUniqueUsers30": "SpecialViewStatsUniqueUsers30",
-        "ViewStatsTotalViews30": "SpecialViewStatsTotalViews30",
-        "ViewStatsRecent": "SpecialViewStatsRecent",
-        "ViewStatsYourRecent": "SpecialViewStatsYourRecent",
-        "ViewStats7": "SpecialViewStats7",
-        "ViewStats30": "SpecialViewStats30",
-        "ViewStatsAllTime": "SpecialViewStatsAllTime",
-        "ViewStats": "SpecialViewStats",
-        "PageViews": "SpecialPageViews"
-    },
-    "APIModules": {
-        "pageviews": "ViewStatsPageViewsQueryApi"
-    },
-    "manifest_version": 1
+  "name": "ViewStats",
+  "type": "specialpage",
+  "author": [
+    "Scott Caldwell",
+    "Steven Orvis"
+  ],
+  "version": "0.1.0",
+  "descriptionmsg": "viewstats-desc",
+  "ExtensionMessagesFiles": {
+    "ViewStatsAlias": "ViewStats.alias.php"
+  },
+  "MessagesDirs": {
+    "ViewStats": "i18n"
+  },
+  "config": {
+    "ViewStatsHiddenNamespaces" : []
+  },
+  "AutoloadClasses": {
+    "ViewStatsHooks": "ViewStats.hooks.php",
+    "SpecialViewStatsUniqueUsers30": "special/SpecialViewStatsUniqueUsers30.php",
+    "SpecialViewStatsTotalViews30": "special/SpecialViewStatsTotalViews30.php",
+    "SpecialViewStatsRecent": "special/SpecialViewStatsRecent.php",
+    "SpecialViewStatsYourRecent": "special/SpecialViewStatsYourRecent.php",
+    "SpecialViewStats7": "special/SpecialViewStats7.php",
+    "SpecialViewStats30": "special/SpecialViewStats30.php",
+    "SpecialViewStatsAllTime": "special/SpecialViewStatsAllTime.php",
+    "SpecialViewStats": "special/SpecialViewStats.php",
+    "ViewStatsPageViewsQueryApi": "api/ViewStatsPageViewsQueryApi.php",
+    "SpecialPageViews": "special/SpecialPageViews.php"
+  },
+  "Hooks": {
+    "LoadExtensionSchemaUpdates": "ViewStatsHooks::onLoadExtensionSchemaUpdates",
+    "PageViewUpdates": "ViewStatsHooks::onPageViewUpdates",
+    "SkinTemplateNavigation": "ViewStatsHooks::onSkinTemplateNavigation"
+  },
+  "SpecialPages": {
+    "ViewStatsUniqueUsers30": "SpecialViewStatsUniqueUsers30",
+    "ViewStatsTotalViews30": "SpecialViewStatsTotalViews30",
+    "ViewStatsRecent": "SpecialViewStatsRecent",
+    "ViewStatsYourRecent": "SpecialViewStatsYourRecent",
+    "ViewStats7": "SpecialViewStats7",
+    "ViewStats30": "SpecialViewStats30",
+    "ViewStatsAllTime": "SpecialViewStatsAllTime",
+    "ViewStats": "SpecialViewStats",
+    "PageViews": "SpecialPageViews"
+  },
+  "APIModules": {
+    "pageviews": "ViewStatsPageViewsQueryApi"
+  },
+  "manifest_version": 1
 }

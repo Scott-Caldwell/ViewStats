@@ -4,25 +4,26 @@
  *
  * @file
  * @ingroup Extensions
- * @author Scott Caldwell, 2018
- * @author Steven Orvis, 2018
+ * @author Scott Caldwell, 2019
+ * @author Steven Orvis, 2019
  * @license GNU General Public Licence 2.0 or later
  */
 
 class SpecialViewStatsUtility {
-	private function __construct() {}
 
-	public static function getPageIdSubquery() {
-		global $wgViewStatsHiddenNamespaces;
+    private function __construct() {}
 
-		$query = 'select page_id from page';
+    public static function getPageIdSubquery() {
+        global $wgViewStatsHiddenNamespaces;
 
-		if ( empty( $wgViewStatsHiddenNamespaces ) ) {
-			return $query;
-		}
+        $query = 'select page_id from page';
 
-		$namespaces = join( ',', $wgViewStatsHiddenNamespaces );
+        if ( empty( $wgViewStatsHiddenNamespaces ) ) {
+            return $query;
+        }
 
-		return $query . " where page_namespace not in ({$namespaces})";
-	}
+        $namespaces = join( ',', $wgViewStatsHiddenNamespaces );
+
+        return "{$query} where page_namespace not in ({$namespaces})";
+    }
 }

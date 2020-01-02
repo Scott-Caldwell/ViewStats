@@ -11,6 +11,6 @@ $specialPageAliases = array();
 
 /** English (English) */
 $specialPageAliases['en'] = [
-	'ViewStats' => [ 'ViewStats' ],
-	'PageViews' => [ 'PageViews' ]
+    'ViewStats' => [ 'ViewStats' ],
+    'PageViews' => [ 'PageViews' ]
 ];
