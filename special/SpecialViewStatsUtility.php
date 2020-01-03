@@ -4,8 +4,8 @@
  *
  * @file
  * @ingroup Extensions
- * @author Scott Caldwell, 2019
- * @author Steven Orvis, 2019
+ * @author Scott Caldwell, 2020
+ * @author Steven Orvis, 2020
  * @license GNU General Public Licence 2.0 or later
  */
 
