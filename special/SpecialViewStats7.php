@@ -6,7 +6,7 @@
  * @ingroup Extensions
  * @author Scott Caldwell, 2020
  * @author Steven Orvis, 2020
- * @license GNU General Public Licence 2.0 or later
+ * @license MIT
  */
 
 require_once( 'SpecialViewStatsUtility.php' );
@@ -33,7 +33,7 @@ class SpecialViewStats7 extends SpecialPage {
         
         $recentViews = $dbr->select( 'view_increment',
             [ 'count(*) AS QUERYCOUNT', 'page_id' ],
-              "view_increment.page_id in ({$pageIdSubquery}) and update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 7 day))",
+              "view_increment.page_id in ({$pageIdSubquery}) and update_timestamp > timestamp(date_sub(now(), interval 7 day))",
             __METHOD__,
             [ 'GROUP BY' => 'page_id',
               'ORDER BY' => 'QUERYCOUNT DESC, page_id DESC LIMIT 10' ]

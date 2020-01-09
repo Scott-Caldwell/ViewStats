@@ -1,8 +1,18 @@
 <?php
+/**
+ * ViewStats extension
+ *
+ * @file
+ * @ingroup Extensions
+ * @author Scott Caldwell, 2020
+ * @author Steven Orvis, 2020
+ * @license MIT
+ */
+
 class SpecialPageViews extends SpecialPage {
 
     function __construct() {
-            parent::__construct( 'PageViews', '', false, false, '', true );
+        parent::__construct( 'PageViews', '', false, false, '', true );
     }
     
     function execute( $par ) {
@@ -11,17 +21,14 @@ class SpecialPageViews extends SpecialPage {
         $this->setHeaders();
 
         $pageid = $request->getText( 'pageid' );
-
         $page = WikiPage::newFromId( $pageid );
         $title = $page->getTitle();
 
         $output->setPageTitle( "Page views for {$title}" );
-
         $output->addBacklinkSubtitle( $title );
 
         $text = SpecialPageViews::buildText( $pageid );
-        
-            $output->addWikiText( $text );
+        $output->addWikiText( $text );
     }
 
     private static function buildText( $pageid ) {

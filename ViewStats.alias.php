@@ -1,11 +1,13 @@
 <?php
 /**
- * Aliases for special pages
+ * ViewStats extension
  *
  * @file
  * @ingroup Extensions
+ * @author Scott Caldwell, 2020
+ * @author Steven Orvis, 2020
+ * @license MIT
  */
-// @codingStandardsIgnoreFile
 
 $specialPageAliases = array();
 

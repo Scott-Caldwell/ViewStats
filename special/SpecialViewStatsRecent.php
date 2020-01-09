@@ -6,7 +6,7 @@
  * @ingroup Extensions
  * @author Scott Caldwell, 2020
  * @author Steven Orvis, 2020
- * @license GNU General Public Licence 2.0 or later
+ * @license MIT
  */
 
 require_once( 'SpecialViewStatsUtility.php' );

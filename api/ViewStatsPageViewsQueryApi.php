@@ -1,4 +1,14 @@
 <?php
+/**
+ * ViewStats extension
+ *
+ * @file
+ * @ingroup Extensions
+ * @author Scott Caldwell, 2020
+ * @author Steven Orvis, 2020
+ * @license MIT
+ */
+
 class ViewStatsPageViewsQueryApi extends ApiBase {
 
     public function getAllowedParams() {
