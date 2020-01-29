@@ -14,7 +14,8 @@
     "ViewStats": "i18n"
   },
   "config": {
-    "ViewStatsHiddenNamespaces" : []
+    "ViewStatsHiddenNamespaces" : [],
+    "ViewStatsIgnoredNamespaces" : []
   },
   "AutoloadClasses": {
     "ViewStatsHooks": "ViewStats.hooks.php",

@@ -19,7 +19,16 @@ class ViewStatsHooks {
     }
 
     public static function onPageViewUpdates( WikiPage $wikipage, User $user ) {
+        global $wgViewStatsIgnoredNamespaces;
+
         if ( $user->isAllowed( 'bot' ) || !$wikipage->exists() ) {
+            return;
+        }
+
+        $title = $wikipage->getTitle();
+        $namespace = $title->getNamespace();
+
+        if ( !empty( $wgViewStatsIgnoredNamespaces ) && in_array( $namespace, $wgViewStatsIgnoredNamespaces, true ) ) {
             return;
         }
 
@@ -65,10 +74,16 @@ class ViewStatsHooks {
     }
 
     public static function onSkinTemplateNavigation( &$sktemplate, &$links ) {
+        global $wgViewStatsIgnoredNamespaces;
+
         $title = $sktemplate->getTitle();
         $namespace = $title->getNamespace();
 
-        if ( $title->exists() && $namespace != NS_SPECIAL ) {
+        $canShowTab = $title->exists()
+            && $namespace != NS_SPECIAL
+            && ( empty( $wgViewStatsIgnoredNamespaces ) || !in_array( $namespace, $wgViewStatsIgnoredNamespaces, true ) );
+
+        if ( $canShowTab ) {
 
             $page = WikiPage::factory( $title );
             $pageid = $page->getId();
