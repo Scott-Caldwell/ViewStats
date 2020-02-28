@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS /*_*/view_increment (
   page_id integer NOT NULL COMMENT 'Page that was viewed.',
   user_id integer NOT NULL COMMENT 'User who viewed the page.',
   user_name varchar(255) NOT NULL COMMENT 'Name or IP address of the user who viewed the page.',
-  update_timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Timestamp of the page view.',
+  update_timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp of the page view.',
   /*update_week date NOT NULL DEFAULT (date(subdate(update_timestamp, dayofweek(update_timestamp) - 1))) COMMENT 'Week of the page view.',*/
   total_views integer NOT NULL COMMENT 'Total number of views as of the update timestamp.',
   PRIMARY KEY (view_increment_id),
