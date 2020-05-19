@@ -14,7 +14,7 @@ class SpecialPageViews extends SpecialPage {
     function __construct() {
         parent::__construct( 'PageViews', '', false, false, '', true );
     }
-    
+
     function execute( $par ) {
         $request = $this->getRequest();
         $output = $this->getOutput();
@@ -38,7 +38,7 @@ class SpecialPageViews extends SpecialPage {
             \"height\": 400,
             \"data\": [{
                 \"name\": \"table\",
-                \"url\": \"wikiapi:///api.php?action=pageviews&format=json&pageid={$pageid}\",
+                \"url\": \"/api.php?action=pageviews&format=json&pageid={$pageid}\",
                 \"format\": {
                   \"type\": \"json\",
                   \"property\": \"pageviews.views\",
