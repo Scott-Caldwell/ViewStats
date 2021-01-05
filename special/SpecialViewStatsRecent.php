@@ -34,11 +34,12 @@ class SpecialViewStatsRecent extends SpecialPage {
         $pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
 
         $recentViews = $dbr->select( 'view_increment',
-            [ 'view_increment.page_id', 'max(view_increment.update_timestamp) as update_timestamp' ],
+            [ 'view_increment.page_id',
+              'max(view_increment.update_timestamp) as update_timestamp' ],
             "view_increment.page_id in ({$pageIdSubquery})",
             __METHOD__,
             [ 'GROUP BY' => 'view_increment.page_id',
-              'ORDER BY' => 'view_increment.update_timestamp DESC LIMIT 10' ]
+              'ORDER BY' => 'max(view_increment.update_timestamp) DESC LIMIT 10' ]
         );
 
         foreach ( $recentViews as $row ){
