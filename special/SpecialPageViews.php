@@ -28,7 +28,7 @@ class SpecialPageViews extends SpecialPage {
         $output->addBacklinkSubtitle( $title );
 
         $text = SpecialPageViews::buildText( $pageid );
-        $output->addWikiText( $text );
+        $output->addWikiTextAsContent( $text );
     }
 
     private static function buildText( $pageid ) {

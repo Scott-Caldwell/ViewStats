@@ -25,7 +25,7 @@ class SpecialViewStatsAllTime extends SpecialPage {
 
         $wikitext = $this->displayCommonViewsAll( $dbr );
 
-        $output->addWikiText( $wikitext );
+        $output->addWikiTextAsContent( $wikitext );
     }
 
     private function displayCommonViewsAll( $dbr ) {

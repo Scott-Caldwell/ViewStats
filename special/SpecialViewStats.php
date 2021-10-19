@@ -28,6 +28,6 @@ class SpecialViewStats extends SpecialPage {
         $wikitext .= "{{Special:ViewStats30}}\r\n";
         $wikitext .= "{{Special:ViewStatsAllTime}}\r\n";
         
-        $output->addWikiText( $wikitext );
+        $output->addWikiTextAsContent( $wikitext );
     }
 }

@@ -29,7 +29,7 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
         $wikitext .= "\r\n\r\n";
         $wikitext .= $this->displayUniqueIPs( $dbr, $pageIdSubquery );
 
-        $output->addWikiText( $wikitext );
+        $output->addWikiTextAsContent( $wikitext );
     }
 
     private function displayUniqueUsers( $dbr, $pageIdSubquery ) {

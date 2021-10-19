@@ -25,7 +25,7 @@ class SpecialViewStatsTotalViews30 extends SpecialPage {
 
         $wikitext = $this->displayUniqueUsers( $dbr );
 
-        $output->addWikiText( $wikitext );
+        $output->addWikiTextAsContent( $wikitext );
     }
 
     private function displayUniqueUsers( $dbr ) {

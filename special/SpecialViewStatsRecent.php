@@ -25,7 +25,7 @@ class SpecialViewStatsRecent extends SpecialPage {
 
         $wikitext = $this->displayRecentViews( $dbr );
 
-        $output->addWikiText( $wikitext );
+        $output->addWikiTextAsContent( $wikitext );
     }
 
     private function displayRecentViews( $dbr ) {

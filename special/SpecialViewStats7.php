@@ -25,7 +25,7 @@ class SpecialViewStats7 extends SpecialPage {
         
         $wikitext = $this->displayCommonViews7( $dbr );
         
-        $output->addWikiText( $wikitext );
+        $output->addWikiTextAsContent( $wikitext );
     }
     
     private function displayCommonViews7( $dbr ) {
