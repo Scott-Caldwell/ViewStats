@@ -38,7 +38,7 @@ class SpecialPageViews extends SpecialPage {
             \"height\": 400,
             \"data\": [{
                 \"name\": \"table\",
-                \"url\": \"/api.php?action=pageviews&format=json&pageid={$pageid}\",
+                \"url\": \"wikiapi:///?action=pageviews&format=json&pageid={$pageid}\",
                 \"format\": {
                   \"type\": \"json\",
                   \"property\": \"pageviews.views\",
