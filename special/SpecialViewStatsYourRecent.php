@@ -21,7 +21,7 @@ class SpecialViewStatsYourRecent extends SpecialPage {
         $output = $this->getOutput();
         $this->setHeaders();
 
-        $dbr = wfGetDB( DB_SLAVE );
+        $dbr = wfGetDB( DB_REPLICA );
 
         $wikitext = $this->displayYourRecentViews( $dbr );
 

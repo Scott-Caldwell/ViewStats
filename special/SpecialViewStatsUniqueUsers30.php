@@ -21,7 +21,7 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
         $output = $this->getOutput();
         $this->setHeaders();
 
-        $dbr = wfGetDB( DB_SLAVE );
+        $dbr = wfGetDB( DB_REPLICA );
 
         $pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
 

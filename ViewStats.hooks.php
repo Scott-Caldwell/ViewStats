@@ -32,7 +32,7 @@ class ViewStatsHooks {
             return;
         }
 
-        $dbw = wfGetDB( DB_MASTER );
+        $dbw = wfGetDB( DB_PRIMARY );
         $pageId = intval( $wikipage->getId() );
         $userId = intval( $user->getId() );
         $userName = $user->getName();
