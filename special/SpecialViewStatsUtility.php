@@ -65,7 +65,7 @@ class SpecialViewStatsUtility {
             return "";
         }
 
-        $quotedNames = array_map( function ( $x ) { return addslashes( "'{$x}'" ); }, $wgViewStatsHiddenUserNames);
+        $quotedNames = array_map( function ( $x ) { return "'{$x}'"; }, $wgViewStatsHiddenUserNames);
         $userNames = join ( ',', $quotedNames );
         return "view_increment.user_name not in ({$userNames})";
     }
