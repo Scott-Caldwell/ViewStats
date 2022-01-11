@@ -4,8 +4,8 @@
  *
  * @file
  * @ingroup Extensions
- * @author Scott Caldwell, 2020
- * @author Steven Orvis, 2020
+ * @author Scott Caldwell, 2022
+ * @author Steven Orvis, 2022
  * @license MIT
  */
 
@@ -31,11 +31,11 @@ class SpecialViewStatsAllTime extends SpecialPage {
     private function displayCommonViewsAll( $dbr ) {
         $wikitext = "==Most viewed pages of all time==\r\n";
 
-        $pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditions();
 
         $totalViews_v = $dbr->select( 'view_increment',
             [ 'max(total_views) AS QUERYCOUNT', 'page_id' ],
-            "view_increment.page_id in ({$pageIdSubquery})",
+            $conditions,
             __METHOD__,
             [ 'GROUP BY' => 'page_id',
               'ORDER BY' => 'QUERYCOUNT DESC LIMIT 10' ]

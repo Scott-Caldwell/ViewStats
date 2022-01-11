@@ -4,8 +4,8 @@
  *
  * @file
  * @ingroup Extensions
- * @author Scott Caldwell, 2020
- * @author Steven Orvis, 2020
+ * @author Scott Caldwell, 2022
+ * @author Steven Orvis, 2022
  * @license MIT
  */
 
@@ -23,32 +23,32 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
 
         $dbr = wfGetDB( DB_REPLICA );
 
-        $pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditions("30 day");
 
-        $wikitext = $this->displayUniqueUsers( $dbr, $pageIdSubquery );
+        $wikitext = $this->displayUniqueUsers( $dbr, $conditions );
         $wikitext .= "\r\n\r\n";
-        $wikitext .= $this->displayUniqueIPs( $dbr, $pageIdSubquery );
+        $wikitext .= $this->displayUniqueIPs( $dbr, $conditions );
 
         $output->addWikiTextAsContent( $wikitext );
     }
 
-    private function displayUniqueUsers( $dbr, $pageIdSubquery ) {
+    private function displayUniqueUsers( $dbr, $conditions ) {
+        $conditions[] = 'user_name in (select user_name from user)';
+
         $userCount = $dbr->selectField( 'view_increment',
             [ 'count(distinct user_name)' ],
-            [ "page_id in ({$pageIdSubquery})",
-              'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
-              'user_name in (select user_name from user)' ]
+            $conditions
         );
 
         return "'''Unique logged-in users in the last 30 days:''' {$userCount}";
     }
 
-    private function displayUniqueIPs( $dbr, $pageIdSubquery ) {
+    private function displayUniqueIPs( $dbr, $conditions ) {
+        $conditions[] = 'user_name not in (select user_name from user)';
+
         $userCount = $dbr->selectField( 'view_increment',
             [ 'count(distinct user_name)' ],
-            [ "page_id in ({$pageIdSubquery})",
-              'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))',
-              'user_name not in (select user_name from user)' ]
+            $conditions
         );
 
         return "'''Unique IPs (not logged in) in the last 30 days:''' {$userCount}";

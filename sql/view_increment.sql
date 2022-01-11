@@ -1,6 +1,6 @@
 -- MySQL version of the database schema for the View Stats extension.
 -- License: MIT
--- Author: Scott Caldwell, 2020; Steven Orvis, 2020
+-- Author: Scott Caldwell, 2022; Steven Orvis, 2022
 
 CREATE TABLE IF NOT EXISTS /*_*/view_increment (
   view_increment_id integer NOT NULL AUTO_INCREMENT COMMENT 'Primary key.',

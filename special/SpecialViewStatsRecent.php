@@ -4,8 +4,8 @@
  *
  * @file
  * @ingroup Extensions
- * @author Scott Caldwell, 2020
- * @author Steven Orvis, 2020
+ * @author Scott Caldwell, 2022
+ * @author Steven Orvis, 2022
  * @license MIT
  */
 
@@ -31,12 +31,12 @@ class SpecialViewStatsRecent extends SpecialPage {
     private function displayRecentViews( $dbr ) {
         $wikitext = "==Trending pages==\r\n";
 
-        $pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditions();
 
         $recentViews = $dbr->select( 'view_increment',
             [ 'view_increment.page_id',
               'max(view_increment.update_timestamp) as update_timestamp' ],
-            "view_increment.page_id in ({$pageIdSubquery})",
+            $conditions,
             __METHOD__,
             [ 'GROUP BY' => 'view_increment.page_id',
               'ORDER BY' => 'max(view_increment.update_timestamp) DESC LIMIT 10' ]

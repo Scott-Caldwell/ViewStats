@@ -4,8 +4,8 @@
  *
  * @file
  * @ingroup Extensions
- * @author Scott Caldwell, 2020
- * @author Steven Orvis, 2020
+ * @author Scott Caldwell, 2022
+ * @author Steven Orvis, 2022
  * @license MIT
  */
 
@@ -29,11 +29,11 @@ class SpecialViewStats7 extends SpecialPage {
     }
     
     private function displayCommonViews7( $dbr ) {
-        $pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditions("7 day");
         
         $recentViews = $dbr->select( 'view_increment',
             [ 'count(*) AS QUERYCOUNT', 'page_id' ],
-              "view_increment.page_id in ({$pageIdSubquery}) and update_timestamp > timestamp(date_sub(now(), interval 7 day))",
+            $conditions,
             __METHOD__,
             [ 'GROUP BY' => 'page_id',
               'ORDER BY' => 'QUERYCOUNT DESC, page_id DESC LIMIT 10' ]

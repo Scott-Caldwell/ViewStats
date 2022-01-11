@@ -5,7 +5,7 @@
     "Scott Caldwell",
     "Steven Orvis"
   ],
-  "version": "0.2.0",
+  "version": "0.3.0",
   "descriptionmsg": "viewstats-desc",
   "ExtensionMessagesFiles": {
     "ViewStatsAlias": "ViewStats.alias.php"

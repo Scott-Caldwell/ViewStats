@@ -4,8 +4,8 @@
  *
  * @file
  * @ingroup Extensions
- * @author Scott Caldwell, 2020
- * @author Steven Orvis, 2020
+ * @author Scott Caldwell, 2022
+ * @author Steven Orvis, 2022
  * @license MIT
  */
 

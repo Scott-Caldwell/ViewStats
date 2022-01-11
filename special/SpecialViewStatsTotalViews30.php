@@ -4,8 +4,8 @@
  *
  * @file
  * @ingroup Extensions
- * @author Scott Caldwell, 2020
- * @author Steven Orvis, 2020
+ * @author Scott Caldwell, 2022
+ * @author Steven Orvis, 2022
  * @license MIT
  */
 
@@ -23,18 +23,17 @@ class SpecialViewStatsTotalViews30 extends SpecialPage {
 
         $dbr = wfGetDB( DB_REPLICA );
 
-        $wikitext = $this->displayUniqueUsers( $dbr );
+        $wikitext = $this->displayTotalViews( $dbr );
 
         $output->addWikiTextAsContent( $wikitext );
     }
 
-    private function displayUniqueUsers( $dbr ) {
-        $pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
+    private function displayTotalViews( $dbr ) {
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditions("30 day");
 
         $userCount = $dbr->selectField( 'view_increment',
             [ 'count(*)' ],
-            [ "page_id in ({$pageIdSubquery})",
-              'update_timestamp > TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day))' ]
+            $conditions
         );
 
         return "'''Total views in the last 30 days:''' {$userCount}";
