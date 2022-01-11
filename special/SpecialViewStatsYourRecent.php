@@ -44,7 +44,7 @@ class SpecialViewStatsYourRecent extends SpecialPage {
             [ 'ORDER BY' => 'view_increment.update_timestamp DESC LIMIT 10' ]
         );
 
-        foreach ( $recentViews as $row ){
+        foreach ( $recentViews as $row ) {
             $page = WikiPage::newFromID( $row->page_id );
             $title = $page->getTitle();
             $timestamp = $row->update_timestamp;

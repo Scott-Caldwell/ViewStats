@@ -42,6 +42,8 @@ class SpecialViewStats30 extends SpecialPage {
         $wikitext = "==Most viewed pages in the last 30 days==\r\n{| class=\"wikitable sortable\"\r\n !Page\r\n !Views\r\n";
         
         foreach( $recentViews as $row ) {
+            SpecialViewStatsUtility::assertValidPageId( $row->page_id, $conditions );
+            
             $page = WikiPage::newFromID( $row->page_id );
             $title = $page->getTitle();
             $count = $row->QUERYCOUNT;

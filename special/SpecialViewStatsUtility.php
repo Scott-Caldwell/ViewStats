@@ -13,6 +13,15 @@ class SpecialViewStatsUtility {
 
     private function __construct() {}
 
+    public static function assertValidPageId( $pageId, $conditions ) {
+        if ( empty( $pageId ) || $pageId < 1 ) {
+            $error = "Invalid page ID: {$row->page_id}\n\n"
+            . "Query conditions were: {print_r( $conditions, true )}";
+
+            throw new Exception( $error );
+        }
+    }
+
     public static function getPageIdSubquery() {
         global $wgViewStatsHiddenNamespaces;
 
@@ -26,7 +35,7 @@ class SpecialViewStatsUtility {
         return $query;
     }
 
-    public static function getViewIncrementConditions($interval = '') {
+    public static function getViewIncrementConditions( $interval = '' ) {
         $pageIdSubquery = self::getPageIdSubquery();
         $conditions = [ "view_increment.page_id not in ({$pageIdSubquery})" ];
 
