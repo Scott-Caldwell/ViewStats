@@ -15,15 +15,26 @@ class SpecialViewStatsUtility {
 
     public static function getPageIdSubquery() {
         global $wgViewStatsHiddenNamespaces;
+        global $wgViewStatsHiddenUserIds;
+        global $wgViewStatsHiddenUserNames;
 
-        $query = 'select page_id from page';
+        $query = 'select page_id from page where 1 = 1';
 
-        if ( empty( $wgViewStatsHiddenNamespaces ) ) {
-            return $query;
+        if ( !empty( $wgViewStatsHiddenNamespaces ) ) {
+            $namespaces = join( ',', $wgViewStatsHiddenNamespaces );
+            $query = "{$query} and page_namespace not in ({$namespaces})";
         }
 
-        $namespaces = join( ',', $wgViewStatsHiddenNamespaces );
+        if ( !empty( wgViewStatsHiddenUserIds ) ) {
+            $userIds = join ( ',', $wgViewStatsHiddenUserIds );
+            $query = "{$query} and user_id not in ({$userIds})";
+        }
 
-        return "{$query} where page_namespace not in ({$namespaces})";
+        if ( !empty( wgViewStatsHiddenUserNames ) ) {
+            $userNames = join ( ',', $wgViewStatsHiddenUserNames );
+            $query = "{$query} and user_name not in ({$userNames})";
+        }
+
+        return $query;
     }
 }

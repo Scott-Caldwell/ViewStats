@@ -15,7 +15,9 @@
   },
   "config": {
     "ViewStatsHiddenNamespaces" : [],
-    "ViewStatsIgnoredNamespaces" : []
+    "ViewStatsIgnoredNamespaces" : [],
+    "ViewStatsHiddenUserIds": [],
+    "ViewStatsHiddenUserNames": []
   },
   "AutoloadClasses": {
     "ViewStatsHooks": "ViewStats.hooks.php",
