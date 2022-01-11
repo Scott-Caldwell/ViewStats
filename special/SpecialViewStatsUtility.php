@@ -27,15 +27,15 @@ class SpecialViewStatsUtility {
     }
 
     public static function getViewIncrementConditions($interval = '') {
-        $pageIdSubquery = $this->getPageIdSubquery();
+        $pageIdSubquery = self::getPageIdSubquery();
         $conditions = [ "view_increment.page_id not in ({$pageIdSubquery})" ];
 
-        $userIdCondition = $this->getUserIdCondition();
+        $userIdCondition = self::getUserIdCondition();
         if ( !empty( $userIdCondition ) ) {
             $conditions[] = $userIdCondition;
         }
 
-        $userNameCondition = $this->getUserNameCondition();
+        $userNameCondition = self::getUserNameCondition();
         if ( !empty( $userNameCondition ) ) {
             $conditions[] = $userNameCondition;
         }
