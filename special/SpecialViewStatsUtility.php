@@ -22,17 +22,18 @@ class SpecialViewStatsUtility {
 
         if ( !empty( $wgViewStatsHiddenNamespaces ) ) {
             $namespaces = join( ',', $wgViewStatsHiddenNamespaces );
-            $query = "{$query} and page_namespace not in ({$namespaces})";
+            $query .= " and page_namespace not in ({$namespaces})";
         }
 
-        if ( !empty( wgViewStatsHiddenUserIds ) ) {
+        if ( !empty( $wgViewStatsHiddenUserIds ) ) {
             $userIds = join ( ',', $wgViewStatsHiddenUserIds );
-            $query = "{$query} and user_id not in ({$userIds})";
+            $query .= " and user_id not in ({$userIds})";
         }
 
-        if ( !empty( wgViewStatsHiddenUserNames ) ) {
-            $userNames = join ( ',', $wgViewStatsHiddenUserNames );
-            $query = "{$query} and user_name not in ({$userNames})";
+        if ( !empty( $wgViewStatsHiddenUserNames ) ) {
+            $quotedNames = array_map( function ( $x ) { return "'{$x}'"; }, $wgViewStatsHiddenUserNames);
+            $userNames = join ( ',', $quotedNames );
+            $query .= " and user_name not in ({$userNames})";
         }
 
         return $query;
