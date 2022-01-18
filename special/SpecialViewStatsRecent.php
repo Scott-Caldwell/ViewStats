@@ -43,9 +43,9 @@ class SpecialViewStatsRecent extends SpecialPage {
         );
 
         foreach ( $recentViews as $row ) {
-            SpecialViewStatsUtility::assertValidPageId( $row->page_id, $conditions );
-
             $page = WikiPage::newFromID( $row->page_id );
+            SpecialViewStatsUtility::assertValidPage( $page, $conditions );
+
             $title = $page->getTitle();
             $timestamp = $row->update_timestamp;
 

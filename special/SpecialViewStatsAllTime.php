@@ -64,9 +64,9 @@ class SpecialViewStatsAllTime extends SpecialPage {
         $wikitext .= "{| class=\"wikitable sortable\"\r\n !Page\r\n !Views\r\n";
 
         foreach ( $totalViews as $row ) {
-            SpecialViewStatsUtility::assertValidPageId( $row->page_id, $conditions );
-
             $page = WikiPage::newFromID( $row->page_id );
+            SpecialViewStatsUtility::assertValidPage( $page, $conditions );
+
             $title = $page->getTitle();
             $count = $row->QUERYCOUNT;
 

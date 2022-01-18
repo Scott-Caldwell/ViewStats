@@ -13,8 +13,8 @@ class SpecialViewStatsUtility {
 
     private function __construct() {}
 
-    public static function assertValidPageId( $pageId, $conditions ) {
-        if ( empty( $pageId ) || $pageId < 1 ) {
+    public static function assertValidPage( $page, $conditions ) {
+        if ( empty( $page ) ) {
             $error = "Invalid page ID: {$row->page_id}\n\n"
             . "Query conditions were: {print_r( $conditions, true )}";
 
