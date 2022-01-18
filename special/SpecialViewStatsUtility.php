@@ -15,8 +15,9 @@ class SpecialViewStatsUtility {
 
     public static function assertValidPage( $page, $conditions ) {
         if ( empty( $page ) ) {
-            $error = "Invalid page ID: {$row->page_id}\n\n"
-            . "Query conditions were: {print_r( $conditions, true )}";
+            $conditionsText = print_r( $conditions, true );
+            $error = "Invalid page ID: {$page->page_id}\n"
+            . "Query conditions were: {$conditionsText}\n";
 
             throw new Exception( $error );
         }
