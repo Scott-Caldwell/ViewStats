@@ -38,7 +38,7 @@ class SpecialViewStatsUtility {
 
     public static function getViewIncrementConditions( $interval = '' ) {
         $pageIdSubquery = self::getPageIdSubquery();
-        $conditions = [ "view_increment.page_id not in ({$pageIdSubquery})" ];
+        $conditions = [ "view_increment.page_id in ({$pageIdSubquery})" ];
 
         $userIdCondition = self::getUserIdCondition();
         if ( !empty( $userIdCondition ) ) {
