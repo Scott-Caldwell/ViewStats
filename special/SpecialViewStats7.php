@@ -43,7 +43,7 @@ class SpecialViewStats7 extends SpecialPage {
         
         foreach ( $recentViews as $row ) {
             $page = WikiPage::newFromID( $row->page_id );
-            SpecialViewStatsUtility::assertValidPage( $page, $conditions );
+            SpecialViewStatsUtility::assertValidPage( $page, $row->page_id, $conditions );
             
             $title = $page->getTitle();
             $count = $row->QUERYCOUNT;

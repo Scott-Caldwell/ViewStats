@@ -13,10 +13,10 @@ class SpecialViewStatsUtility {
 
     private function __construct() {}
 
-    public static function assertValidPage( $page, $conditions ) {
+    public static function assertValidPage( $page, $pageId, $conditions ) {
         if ( empty( $page ) ) {
             $conditionsText = print_r( $conditions, true );
-            $error = "Invalid page ID: {$page->page_id}\n"
+            $error = "Invalid page ID: {$pageId}\n"
             . "Query conditions were: {$conditionsText}\n";
 
             throw new Exception( $error );
