@@ -9,6 +9,8 @@
  * @license MIT
  */
 
+require_once( '../special/SpecialViewStatsUtility.php' );
+
 class ViewStatsPageViewsQueryApi extends ApiBase {
 
     public function getAllowedParams() {
