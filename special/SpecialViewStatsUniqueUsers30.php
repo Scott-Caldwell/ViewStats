@@ -23,7 +23,7 @@ class SpecialViewStatsUniqueUsers30 extends SpecialPage {
 
         $dbr = wfGetDB( DB_REPLICA );
 
-        $conditions = SpecialViewStatsUtility::getViewIncrementConditions("30 day");
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditionsForInterval( '30 day' );
 
         $wikitext = $this->displayUniqueUsers( $dbr, $conditions );
         $wikitext .= "\r\n\r\n";

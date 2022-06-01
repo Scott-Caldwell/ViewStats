@@ -29,7 +29,7 @@ class SpecialViewStats7 extends SpecialPage {
     }
     
     private function displayCommonViews7( $dbr ) {
-        $conditions = SpecialViewStatsUtility::getViewIncrementConditions("7 day");
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditionsForInterval( '7 day' );
         
         $recentViews = $dbr->select( 'view_increment',
             [ 'count(*) AS QUERYCOUNT', 'page_id' ],

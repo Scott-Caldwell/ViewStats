@@ -29,7 +29,7 @@ class SpecialViewStatsTotalViews30 extends SpecialPage {
     }
 
     private function displayTotalViews( $dbr ) {
-        $conditions = SpecialViewStatsUtility::getViewIncrementConditions("30 day");
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditionsForInterval( '30 day' );
 
         $userCount = $dbr->selectField( 'view_increment',
             [ 'count(*)' ],

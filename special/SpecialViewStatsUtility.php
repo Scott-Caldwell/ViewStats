@@ -36,9 +36,23 @@ class SpecialViewStatsUtility {
         return $query;
     }
 
-    public static function getViewIncrementConditions( $interval = '' ) {
-        $pageIdSubquery = self::getPageIdSubquery();
-        $conditions = [ "view_increment.page_id in ({$pageIdSubquery})" ];
+    public static function getViewIncrementConditionsForPageId( $pageId ) {
+        return self::getViewIncrementConditions( $pageId, '' );
+    }
+
+    public static function getViewIncrementConditionsForInterval( $interval ) {
+        return self::getViewIncrementConditions( -1, $interval );
+    }
+
+    public static function getViewIncrementConditions( $pageId = -1, $interval = '' ) {
+        $conditions = array();
+
+        if ( !empty( $pageId ) && $pageId > 0 ) {
+            $conditions[] = "view_increment.page_id = {$pageId}";
+        } else {
+            $pageIdSubquery = self::getPageIdSubquery();
+            $conditions[] = "view_increment.page_id in ({$pageIdSubquery})";
+        }
 
         $userIdCondition = self::getUserIdCondition();
         if ( !empty( $userIdCondition ) ) {

@@ -33,12 +33,13 @@ class ViewStatsPageViewsQueryApi extends ApiBase {
     }
     
     private static function getViewsByWeek( $dbr, $pageid ) {
-        $dateFunction = 'date(subdate(update_timestamp, dayofweek(update_timestamp) - 1))';
+        $dateFunction = 'date(subdate(view_increment.update_timestamp, dayofweek(view_increment.update_timestamp) - 1))';
         $pageIdAsInt = intval( $pageid );
+        $conditions = SpecialViewStatsUtility::getViewIncrementConditionsForPageId( $pageIdAsInt );
 
         $rows = $dbr->select( 'view_increment',
             [ "{$dateFunction} as date", 'count(*) as viewcount' ],
-            "page_id = {$pageIdAsInt}",
+            $conditions,
             __METHOD__,
             [ 'GROUP BY' => $dateFunction ]
         );
