@@ -9,7 +9,7 @@
  * @license MIT
  */
 
-require_once( '../special/SpecialViewStatsUtility.php' );
+require_once( __DIR__ . '/../special/SpecialViewStatsUtility.php' );
 
 class ViewStatsPageViewsQueryApi extends ApiBase {
 
