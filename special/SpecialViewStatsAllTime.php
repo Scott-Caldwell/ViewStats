@@ -42,6 +42,8 @@ class SpecialViewStatsAllTime extends SpecialPage {
         );
 
         if ( $dbr->tableExists( 'hit_counter' ) ) {
+            $pageIdSubquery = SpecialViewStatsUtility::getPageIdSubquery();
+
             $totalViews_h = $dbr->select( 'hit_counter',
                 [ 'max(page_counter) AS QUERYCOUNT', 'page_id' ],
                 "hit_counter.page_id in ({$pageIdSubquery})",
